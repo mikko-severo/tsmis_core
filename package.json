@@ -1,0 +1,37 @@
+{
+  "name": "tsmis-core",
+  "version": "1.0.0",
+  "description": "A foundational framework for building robust, scalable, and fully modular applications in Node.js.",
+  "main": "none",
+  "devDependencies": {
+    "directory-tree-ascii": "^1.0.10",
+    "jest": "^29.7.0"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
+  },
+  "keywords": [
+    "nodejs framework",
+    "tsmis",
+    "runtime framework",
+    "dependency injection",
+    "modular architecture",
+    "scalable",
+    "enterprise",
+    "inversion of control",
+    "scalable"
+  ],
+  "author": "michael severo",
+  "contributors": [
+    {
+      "name": "claudeAI"
+    },
+    {
+      "name": "ChatgptAI"
+    }
+  ],
+  "license": "MIT"
+}
