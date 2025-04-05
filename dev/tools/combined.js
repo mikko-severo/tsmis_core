@@ -1,9 +1,3 @@
-/**
- * Function: To write the base code in one file including its folder tree and each file's relative path.
- * Purpose:  Ease of sharing the base code to any ai prompts
- * cmd: node dev/combine-files.js
- * */ 
-
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -18,12 +12,15 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '../..'); // Project root directory (one level up from dev folder)
 const devDir = __dirname; // Dev directory where the script is located
 const sourceDir = path.join(rootDir, 'src'); // Directory containing your source files
-//const testDir = path.join(rootDir, 'tests'); // Directory containing your test files
+const testDir = path.join(rootDir, 'tests'); // Directory containing your test files to exclude
 const outputFile = path.join(devDir, '../current_code.txt'); // Output file name with .txt extension in dev folder
 //const additionalFiles = ['server.js', 'vite.config.js', '.env', 'package.json']; // Files in root directory to include
 
 // Add an array of extensions to exclude from content combination (including the dot)
 const excludedExtensions = ['.log', '.map', '.DS_Store', '.ttf', '.ico']; // Add any extensions you want to exclude
+
+// Add array of directories to exclude (relative to root)
+const excludedDirs = ['tests']; // Directory names to exclude
 
 // This function gets all files for content combination
 async function getFiles(dir, fileList = [], basePath = rootDir) {
@@ -34,7 +31,18 @@ async function getFiles(dir, fileList = [], basePath = rootDir) {
     const relativePath = path.relative(basePath, filePath);
     const stat = await fs.stat(filePath);
     
+    // Skip excluded directories
     if (stat.isDirectory()) {
+      // Check if this directory should be excluded
+      const dirName = path.basename(filePath);
+      const relativeDir = path.relative(rootDir, filePath);
+      
+      // Skip if the directory is in the excludedDirs array or is the test directory
+      if (excludedDirs.includes(dirName) || filePath === testDir) {
+        console.log(`Skipping excluded directory: ${relativePath}`);
+        continue;
+      }
+      
       await getFiles(filePath, fileList, basePath);
     } else {
       // Only check exclusions for file content combination
@@ -64,22 +72,6 @@ async function getFolderTree() {
 async function combineFiles() {
   let files = await getFiles(sourceDir);
   
-  // Add files from the test directory
-  //files = files.concat(await getFiles(testDir));
-  
-  // for (const file of additionalFiles) {
-  //   try {
-  //     await fs.access(path.join(rootDir, file));
-  //     // Check exclusions for additional files too
-  //     const fileExt = path.extname(file);
-  //     if (!excludedExtensions.includes(fileExt)) {
-  //       files.push(file);
-  //     }
-  //   } catch (error) {
-  //     console.warn(`File not found: ${file}`);
-  //   }
-  // }
-  
   // The tree will show all files, including excluded ones
   let combinedContent = '/** Folder layout\n * cmd: npx directory-tree-ascii . -b node_modules .git\n';
   combinedContent += await getFolderTree();
@@ -100,6 +92,7 @@ async function combineFiles() {
   await fs.writeFile(outputFile, combinedContent);
   console.log(`Combined ${files.length} files into ${outputFile} (overwritten if it existed)`);
   console.log(`Note: Excluded file types (${excludedExtensions.join(', ')}) appear in the tree but their content is not included.`);
+  console.log(`Note: Excluded directories (${excludedDirs.join(', ')}) appear in the tree but their content is not included.`);
 }
 
 combineFiles().catch(console.error);

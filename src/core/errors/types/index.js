@@ -7,6 +7,7 @@ import { EventError } from './EventError.js';
 import { ModuleError } from './ModuleError.js';
 import { NetworkError } from './NetworkError.js';
 import { ServiceError } from './ServiceError.js';
+import { RouterError } from './RouterError.js';
 import { ValidationError } from './ValidationError.js';
 
 // Export individual error types
@@ -18,7 +19,8 @@ export {
     ModuleError,
     NetworkError,
     ServiceError,
-    ValidationError
+    ValidationError,
+    RouterError
 };
 
 // Create the ErrorTypes namespace
@@ -30,7 +32,8 @@ const ErrorTypes = {
     ModuleError,
     NetworkError,
     ServiceError,
-    ValidationError
+    ValidationError,
+    RouterError
 };
 
 // Export ErrorTypes as both named and default export

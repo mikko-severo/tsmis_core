@@ -1,4 +1,4 @@
-# TSMIS Implementation Roadmap 
+# TSMIS Core Implementation Roadmap 
 Version 1.1
 
 ## Phase 1: Core Foundation (Complete)
@@ -8,7 +8,7 @@ Version 1.1
 - [x] Error System
 - [x] Module System 
 - [x] Event Bus System
-- [ ] Routing System (from client). who handles this? 
+- [ ] Routing System (from client).
 
 ## Phase 2: Core Services (In Progress)
 - [x] Logging Service - already in the container system?
