@@ -11,6 +11,7 @@ import {
   NetworkError,
   ServiceError,
   ValidationError,
+  RouterError,
 } from "./types/index.js";
 
 // Create complete ErrorTypes including CoreError
@@ -30,6 +31,7 @@ export {
   NetworkError,
   ServiceError,
   ValidationError,
+  RouterError,
 };
 
 /**
@@ -101,7 +103,7 @@ export const ErrorCodes = {
 
   // Router related
   ROUTER: {
-    INITIALIZATION_FAILED: "INITIALIZATION_FAILED",
+    INITIALIZATION: "INITIALIZATION_FAILED",
     ALREADY_INITIALIZED: "ALREADY_INITIALIZED",
     NOT_INITIALIZED: "NOT_INITIALIZED",
     ROUTE_CONFLICT: "ROUTE_CONFLICT",

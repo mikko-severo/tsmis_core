@@ -144,10 +144,10 @@ export class RoutableModule extends CoreModule {
   async onInitialize() {
     // Setup health check for routes
     this.registerHealthCheck('routes', async () => {
-      return {
+      return { // line start 147
         status: 'healthy',
         count: this.routes.length,
-        paths: this.routes.map(r => `${r.method} ${r.path}`)
+        paths: this.routes.map(r => `${r.method} ${r.path}`) // line end 150
       };
     });
     
